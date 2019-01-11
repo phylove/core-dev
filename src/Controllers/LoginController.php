@@ -2,11 +2,11 @@
 
 namespace Phy\Core\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Phy\Core\CoreException;
 use Phy\Core\CoreResponse;
 use App;
+use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 
 class LoginController extends Controller
@@ -22,6 +22,10 @@ class LoginController extends Controller
             $payload['key'] = $result->key;
             $payload['iat'] = time(); //waktu di buat
             $payload['exp'] = time() + 3600; //satu jam
+            $payload['session'] = [
+                "user_id" =>  $result->id,
+                "username" => $result->username
+            ];
             $output['token'] = JWT::encode($payload, env('JWT_SECRET', 'xxx'));
 
         } catch (CoreException $ex){

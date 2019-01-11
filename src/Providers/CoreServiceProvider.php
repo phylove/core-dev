@@ -25,11 +25,12 @@ class CoreServiceProvider extends ServiceProvider
         //load migration
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
-        //middleware
-        $this->app['router']->aliasMiddleware('valid.token', \Phy\Core\Middleware\ValidTokenUser::class);
-
         $this->app->singleton('checkValidToken', function(){
             return new \App\Service\CheckValidToken;
+        });
+
+        $this->app->singleton('sessions', function(){
+            return new \Phy\Core\CoreSession;
         });
 
         $this->app->singleton('loginAuth', function(){
