@@ -29,16 +29,18 @@ class CheckValidToken extends CoreService implements DefaultService {
         try {
             $payload = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
             $sessions = app()->make('sessions');
+            
             $sessions->setSession($payload->session);
         } catch(ExpiredException $e) {
             throw New CoreException("Token is expired");
         } catch(Exception $e) {
+           
             throw New CoreException("Invalid Token");
         }
 
         $checkApiValid = ApiToken::where([
-            "key" => $session->key,
-            "user_id" => $session->user_id
+            "key" => $payload->key,
+            "user_id" => $payload->user_id
         ])->first();
 
         if(is_null($checkApiValid)) {

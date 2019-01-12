@@ -4,13 +4,13 @@ namespace Phy\Core;
 
 class CoreSession {
 
-    private $sessions;
+    public $sessions;
 
-	private function setSession($sessions){
+	public function setSession($sessions){
         $this->sessions = $sessions;
     }
     
-    private function getSession($key){
+    public function getSession($key){
         return $this->sessions->{$key};
 	}
 
