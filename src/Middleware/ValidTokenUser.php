@@ -5,7 +5,6 @@ namespace Phy\Core\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Phy\Core\CoreException;
-use App;
 
 class ValidTokenUser
 {
@@ -30,7 +29,7 @@ class ValidTokenUser
         }
 
         try {
-            $checkValidToken = App::make('checkValidToken');
+            $checkValidToken = app()->make('checkValidToken');
             $checkValidToken->execute(["token" => $token]);
         } catch(CoreException $ex) {
             return [

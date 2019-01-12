@@ -5,7 +5,6 @@ namespace Phy\Core\Controllers;
 use App\Http\Controllers\Controller;
 use Phy\Core\CoreException;
 use Phy\Core\CoreResponse;
-use App;
 use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 
@@ -15,7 +14,7 @@ class LoginController extends Controller
     {
 
         try {
-            $loginAuth = App::make('loginAuth');
+            $loginAuth = app()->make('loginAuth');
             $result = $loginAuth->execute($request->all());
             $payload['user_id'] = $result->id;
             $payload['username'] = $result->username;

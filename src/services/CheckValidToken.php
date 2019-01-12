@@ -9,7 +9,6 @@ use Phy\Core\Models\ApiToken;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Exception;
-use App;
 
 class CheckValidToken extends CoreService implements DefaultService {
 
@@ -29,7 +28,7 @@ class CheckValidToken extends CoreService implements DefaultService {
         
         try {
             $payload = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
-            $sessions = App::make('sessions');
+            $sessions = app()->make('sessions');
             $sessions->setSession($payload->session);
         } catch(ExpiredException $e) {
             throw New CoreException("Token is expired");
