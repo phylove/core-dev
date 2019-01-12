@@ -2,12 +2,10 @@
 
 namespace Phy\Core\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
-    public $timestamps = false;   
+    public $table      = "users";
+    public $timestamps = false;
 }
