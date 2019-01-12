@@ -26,7 +26,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
 
         $this->app->singleton('checkValidToken', function(){
-            return new \App\Service\CheckValidToken;
+            return new \Phy\Core\Service\CheckValidToken;
         });
 
         $this->app->singleton('sessions', function(){
@@ -34,11 +34,11 @@ class CoreServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton('loginAuth', function(){
-            return new \App\Service\LoginAuth;
+            return new \Phy\Core\Service\LoginAuth;
         });
 
         $this->app->singleton('doLogout', function(){
-            return new \App\Service\DoLogout;
+            return new \Phy\Core\Service\DoLogout;
         });
     }
 }

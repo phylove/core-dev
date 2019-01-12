@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Phy\Core\Controllers'], function() {
             return [true];
         });
         
+        Route::post('/service', 'ServiceController@service');
         Route::post('/logout', 'LoginController@doLogout');
     });
 });

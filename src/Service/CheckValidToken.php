@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Phy\Core\Service;
 
 use Phy\Core\DefaultService;
 use Phy\Core\CoreService;

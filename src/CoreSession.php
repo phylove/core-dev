@@ -12,6 +12,10 @@ class CoreSession {
     
     public function getSession($key){
         return $this->sessions->{$key};
+    }
+    
+    public function getSessionAll(){
+        return $this->sessions;
 	}
 
 }

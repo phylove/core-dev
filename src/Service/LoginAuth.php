@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace Phy\Core\Service;
 
 use Phy\Core\Helpers\DateUtil;
 use Phy\Core\CoreService;
