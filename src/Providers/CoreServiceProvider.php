@@ -19,8 +19,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // load routes
-        $this->loadRoutesFrom(__DIR__.'/../routes.php');
 
         //load migration
         $this->loadMigrationsFrom(__DIR__.'/../migrations');
