@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use DB;
 
 class CreateTableUser extends Migration
 {
@@ -25,6 +26,17 @@ class CreateTableUser extends Migration
             $table->bigInteger('updated_at');
 
         });
+
+        DB::table('phy_users')->insert([
+            'username' => 'superuser',
+            'email' => 'superuser@localhost',
+            'password' => password_hash('superuser', PASSWORD_BCRYPT),
+            'version' => 0,
+            'created_by' => -1,
+            'updated_by' => -1,
+            'created_at' => -1,
+            'updated_at' => -1
+        ]);
     }
 
     /**
