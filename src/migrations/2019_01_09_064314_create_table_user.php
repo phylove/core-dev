@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+// use DB;
 
 class CreateTableUser extends Migration
 {
@@ -45,6 +46,6 @@ class CreateTableUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_user');
+        Schema::dropIfExists('phy_users');
     }
 }
