@@ -17,6 +17,7 @@ class CreateTableUser extends Migration
         Schema::create('phy_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 50)->unique();
+            $table->string('full_name', 100);
             $table->string('email', 100)->unique();
             $table->string('password', 200);
             $table->bigInteger('version');
@@ -29,6 +30,7 @@ class CreateTableUser extends Migration
 
         DB::table('phy_users')->insert([
             'username' => 'superuser',
+            'full_name' => 'Super User',
             'email' => 'superuser@localhost',
             'password' => password_hash('superuser', PASSWORD_BCRYPT),
             'version' => 0,

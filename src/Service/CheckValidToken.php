@@ -47,6 +47,14 @@ class CheckValidToken extends CoreService implements DefaultService {
             throw New CoreException("Token is expired");
         }
 
+        if($checkApiValid->updated_at < DATE_TIME_ACCESS-env('SESSION_LIFE_TIME', 6000)){
+            $checkApiValid->delete();
+            throw New CoreException("Token is expired");
+        } else {
+            $checkApiValid->updated_at = DATE_TIME_ACCESS;
+            $checkApiValid->save();
+        }
+
         return [];
 
     }
