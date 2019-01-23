@@ -10,6 +10,7 @@ class CoreServiceProvider extends ServiceProvider
     public function boot()
     {
         require_once __DIR__.'/../helpers/define.php';
+        require_once __DIR__.'/../helpers/function.php';
     }
 
     /**
@@ -19,8 +20,6 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // load routes
-        $this->loadRoutesFrom(__DIR__.'/../routes.php');
 
         //load migration
         $this->loadMigrationsFrom(__DIR__.'/../migrations');

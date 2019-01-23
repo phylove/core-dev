@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApiToken extends Model
 {
-    public $table      = "api_token";
+    public $table      = "phy_api_token";
     public $timestamps = false;
 }

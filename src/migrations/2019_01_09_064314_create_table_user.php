@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+// use DB;
 
 class CreateTableUser extends Migration
 {
@@ -13,9 +14,10 @@ class CreateTableUser extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('phy_users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 50)->unique();
+            $table->string('full_name', 100);
             $table->string('email', 100)->unique();
             $table->string('password', 200);
             $table->bigInteger('version');
@@ -25,6 +27,18 @@ class CreateTableUser extends Migration
             $table->bigInteger('updated_at');
 
         });
+
+        DB::table('phy_users')->insert([
+            'username' => 'superuser',
+            'full_name' => 'Super User',
+            'email' => 'superuser@localhost',
+            'password' => password_hash('superuser', PASSWORD_BCRYPT),
+            'version' => 0,
+            'created_by' => -1,
+            'updated_by' => -1,
+            'created_at' => -1,
+            'updated_at' => -1
+        ]);
     }
 
     /**
@@ -34,6 +48,6 @@ class CreateTableUser extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_user');
+        Schema::dropIfExists('phy_users');
     }
 }

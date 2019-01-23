@@ -24,7 +24,7 @@ class ValidTokenUser
         if(is_null($token)){
             return [
                 'success' => false,
-                'error_message' => 'Token not found'
+                'error_token' => 'Token not found'
             ];
         }
 
@@ -34,11 +34,9 @@ class ValidTokenUser
         } catch(CoreException $ex) {
             return [
                 'success' => false,
-                'error_message' => $ex->getErrorMessage()
+                'error_token' => $ex->getErrorMessage()
             ];
         }
-
-        
         
         return $next($request);
     }

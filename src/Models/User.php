@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    public $table      = "users";
+    public $table      = "phy_users";
     public $timestamps = false;
 }

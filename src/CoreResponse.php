@@ -24,7 +24,7 @@ class CoreResponse {
             $result["error_message"] = $ex->getErrorMessage();
         }
 
-        if(is_array($ex->getErrorList())){
+        if($ex->getErrorList()){
             $result["error_list"] = $ex->getErrorList();
         }
 

@@ -13,7 +13,7 @@ class CreateTableApiToken extends Migration
      */
     public function up()
     {
-        Schema::create('api_token', function (Blueprint $table) {
+        Schema::create('phy_api_token', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->string('key', 200);

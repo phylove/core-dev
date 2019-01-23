@@ -23,7 +23,7 @@ class SampleTest extends CoreService implements DefaultService {
 
     public function process($input, $originalInput)
     {
-        return $input;
+        return ["test" => "version 1.4.0"];
     }
 
 }
