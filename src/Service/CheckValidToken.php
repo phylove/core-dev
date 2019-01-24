@@ -10,24 +10,26 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Exception;
 
+/**
+ * Class of Authorization JWT token
+ *
+ * @author Agung
+ */
+
 class CheckValidToken extends CoreService implements DefaultService {
 
     public $transaction = false;
 
-    public function getDescription()
+    public function prepare($data)
     {
-        return "Check Valid Token";
+
     }
 
-    public function prepare($input)
-    {
-    }
-
-    public function process($input, $originalInput)
+    public function process($data, $originalData)
     {
         
         try {
-            $payload = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
+            $payload = JWT::decode($data["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
             $sessions = app()->make('sessions');
             
             $sessions->setSession($payload->session);

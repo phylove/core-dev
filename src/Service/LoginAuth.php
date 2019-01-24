@@ -9,28 +9,29 @@ use Phy\Core\CoreException;
 use Phy\Core\Models\User;
 use Phy\Core\Models\ApiToken;
 
+/**
+ * Class of Login Authorize
+ *
+ * @author Agung
+ */
+
 class LoginAuth extends CoreService implements DefaultService {
 
     public $transaction = true;
 
-    public function getDescription()
-    {
-        return "Do Login";
-    }
-
-    public function prepare($input)
+    public function prepare($data)
     {
         
     }
 
-    public function process($input, $originalInput)
+    public function process($data, $originalData)
     {
-        $user = User::where("username", $input["username"])->first();
+        $user = User::where("username", $data["username"])->first();
         if(is_null($user)){
             throw New CoreException("User not found");
         }
 
-        if(!password_verify($input["password"], $user->password)){
+        if(!password_verify($data["password"], $user->password)){
             throw New CoreException("User and Password don't match");
         }
 

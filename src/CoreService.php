@@ -11,8 +11,8 @@ abstract class CoreService implements DefaultService {
 
 	static protected $instances = [];
 	
-	abstract protected function prepare($input);
-	abstract protected function process($input, $originalData);
+	abstract protected function prepare($data);
+	abstract protected function process($data, $originalData);
 
 	static public function getInstance() {
         $class = get_called_class();
@@ -22,22 +22,23 @@ abstract class CoreService implements DefaultService {
         return self::$instances[$class];
     }
 
-	public function execute($input){
-		$originalData = $input;
+	public function execute($data){
+		$originalData = $data;
 		$result = [];
 		
 		try {
             if($this->transaction !== null && $this->transaction !== false)
 			    DB::beginTransaction();
 			
-			$validator = Validator::make($input, $this->rules());
+			$validator = Validator::make($data, $this->rules());
 
 			if ($validator->fails()) {
-				throw new CoreException($validator->errors());
+				throw new CoreException("", $validator->errors());
 			}
 
-			$this->prepare($input);
-			$result =  $this->process($input, $originalData);
+			$dataProcess = is_null($this->prepare($data))? $originalData : $this->prepare($data);
+
+			$result =  $this->process($dataProcess, $originalData);
 			
 			if($this->transaction !== null && $this->transaction !== false)
 			    DB::commit();
@@ -45,7 +46,9 @@ abstract class CoreService implements DefaultService {
 			if($this->transaction !== null && $this->transaction !== false)
 			    DB::rollback();
 			throw $ex;
-        }	
+        } catch (\Exception $ex){
+            $this->errorMessageValidation($ex->getMessage());
+        }
         
 		return $result;
 	}
@@ -54,7 +57,22 @@ abstract class CoreService implements DefaultService {
 		return [];
 	}
 
-	protected function errorBusinessValidation($message="", $errorList=[]) {
-		throw new CoreException($message, $errorList);
+	/**
+	 * @param string $message error Message
+	 * @throws Phy\Core\CoreException
+	 */
+
+	protected function errorMessageValidation($message="") {
+		throw new CoreException($message);
+	}
+
+
+	/**
+	 * @param string $errors 
+	 * @throws Phy\Core\CoreException
+	 */
+
+	protected function errorListValidation($errors=[]) {
+		throw new CoreException("", $errors);
 	}
 }

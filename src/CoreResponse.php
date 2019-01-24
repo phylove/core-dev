@@ -30,5 +30,15 @@ class CoreResponse {
 
         return $result;
         
+    }
+    
+    public static function failForDefaultException($ex){
+        $result["success"] = false;
+        if(!empty($ex->getMessage()) && !is_null($ex->getMessage()) ){
+            $result["error_message"] = $ex->getMessage();
+        }
+
+        return $result;
+        
 	}
 }
