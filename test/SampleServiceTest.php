@@ -15,6 +15,6 @@ class SampleServiceTest extends TestCase
     {
         $service = service('sampleService');
         $output = $service->execute([]); 
-        $this->assertEquals($output["version"], "1.4.0");
+        $this->assertEquals($output["test"], "version 1.4.0");
     }
 }

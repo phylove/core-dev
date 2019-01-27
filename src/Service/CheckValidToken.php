@@ -10,26 +10,24 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Exception;
 
-/**
- * Class of Authorization JWT token
- *
- * @author Agung
- */
-
 class CheckValidToken extends CoreService implements DefaultService {
 
     public $transaction = false;
 
-    public function prepare($data)
+    public function getDescription()
     {
-
+        return "Check Valid Token";
     }
 
-    public function process($data, $originalData)
+    public function prepare($input)
+    {
+    }
+
+    public function process($input, $originalInput)
     {
         
         try {
-            $payload = JWT::decode($data["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
+            $payload = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
             $sessions = app()->make('sessions');
             
             $sessions->setSession($payload->session);
@@ -47,14 +45,6 @@ class CheckValidToken extends CoreService implements DefaultService {
 
         if(is_null($checkApiValid)) {
             throw New CoreException("Token is expired");
-        }
-
-        if($checkApiValid->updated_at < DATE_TIME_ACCESS-env('SESSION_LIFE_TIME', 6000)){
-            $checkApiValid->delete();
-            throw New CoreException("Token is expired");
-        } else {
-            $checkApiValid->updated_at = DATE_TIME_ACCESS;
-            $checkApiValid->save();
         }
 
         return [];

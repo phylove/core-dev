@@ -24,18 +24,8 @@ class CoreResponse {
             $result["error_message"] = $ex->getErrorMessage();
         }
 
-        if($ex->getErrorList()){
+        if(is_array($ex->getErrorList())){
             $result["error_list"] = $ex->getErrorList();
-        }
-
-        return $result;
-        
-    }
-    
-    public static function failForDefaultException($ex){
-        $result["success"] = false;
-        if(!empty($ex->getMessage()) && !is_null($ex->getMessage()) ){
-            $result["error_message"] = $ex->getMessage();
         }
 
         return $result;

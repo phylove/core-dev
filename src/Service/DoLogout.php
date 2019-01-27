@@ -9,24 +9,23 @@ use Phy\Core\Models\ApiToken;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 
-/**
- * Class of Logout App
- *
- * @author Agung
- */
-
 class DoLogout extends CoreService implements DefaultService {
 
     public $transaction = true;
 
-    public function prepare($data)
+    public function getDescription()
+    {
+        return "Do Logout";
+    }
+
+    public function prepare($input)
     {
         
     }
 
-    public function process($data, $originalData)
+    public function process($input, $originalInput)
     {
-        $session = JWT::decode($data["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
+        $session = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
 
         ApiToken::where([
             "key" => $session->key,
