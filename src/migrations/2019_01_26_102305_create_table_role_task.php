@@ -28,7 +28,9 @@ class CreateTableRoleTask extends Migration
 
         DB::statement(
             "INSERT INTO phy_role_task(role_id, task_id, version, created_by, updated_by, created_at, updated_at)
-            SELECT -1, id, 0, -1, -1, ".date("YmdHis").", ".date("YmdHis")." FROM phy_tasks WHERE task_group='manageUser'"
+            SELECT A.id, B.id, 0, -1, -1, ".date("YmdHis").", ".date("YmdHis")." 
+                FROM phy_tasks A, phy_roles B 
+            WHERE A.task_group='manageUser' AND B.role_code='superUser'"
         );
         
     }

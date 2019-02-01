@@ -25,8 +25,7 @@ class CreateTableRoles extends Migration
             $table->bigInteger('updated_at');
         });
 
-        DB::table('phy_roles')->insert([
-            'id' => -1,
+        $roleId = DB::table('phy_roles')->insertGetId([
             'role_code' => 'superUser',
             'role_name' => 'Super User',
             'role_description' => 'Super User have fully task on the system',
@@ -35,6 +34,19 @@ class CreateTableRoles extends Migration
             'updated_by' => -1,
             'created_at' => date("YmdHis"),
             'updated_at' => date("YmdHis")
+        ]);
+
+        DB::table('phy_users')->insert([
+            'username' => 'superuser',
+            'email' => 'superuser@localhost',
+            'password' => password_hash('superuser', PASSWORD_BCRYPT),
+            'full_name' => 'Super User',
+            'role_default_id' => $roleId,
+            'version' => 0,
+            'created_by' => -1,
+            'updated_by' => -1,
+            'created_at' => -1,
+            'updated_at' => -1
         ]);
 
         DB::table('phy_roles')->insert([

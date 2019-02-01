@@ -7,7 +7,9 @@ use Phy\Core\CoreService;
 use Phy\Core\DefaultService;
 use Phy\Core\CoreException;
 use Phy\Core\Models\User;
+use Phy\Core\Models\Role;
 use Phy\Core\Models\ApiToken;
+use DB;
 
 class LoginAuth extends CoreService implements DefaultService {
 
@@ -45,7 +47,28 @@ class LoginAuth extends CoreService implements DefaultService {
 
         $user->key = $key;
 
-        return $user;
+        $role = Role::find($user->role_default_id);
+
+        $tasks = DB::select(
+            "SELECT string_agg(A.task_name, ', ') AS result 
+                FROM phy_tasks A 
+            INNER JOIN phy_role_task B ON A.id=B.task_id
+                WHERE B.role_id=".$role->id);
+        
+        \Log::debug("SELECT string_agg(A.task_name, ', ') AS result 
+        FROM phy_tasks A 
+    INNER JOIN phy_role_task B ON A.id=B.task_id
+        WHERE B.role_id=".$role->id);
+        $session = [
+            "user_id" => $user->id,
+            "username" => $user->username,
+            "key" => $key,
+            "role" => $role->id,
+            "role" => $role->role_name,
+            "tasks" => explode(", ", $tasks[0]->result)
+        ];
+
+        return $session;
 
     }
 

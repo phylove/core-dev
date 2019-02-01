@@ -5,7 +5,7 @@
 if(!function_exists('service')){
 
     /**
-     * execute service when service dont't call first
+     * get service object
      * 
      * @param string     $service  service name in call
      * @return object    the result instance of Class Service

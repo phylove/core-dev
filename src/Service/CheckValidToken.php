@@ -28,13 +28,12 @@ class CheckValidToken extends CoreService implements DefaultService {
         
         try {
             $payload = JWT::decode($input["token"], env('JWT_SECRET', 'xxx'), ['HS256']);
-            $sessions = app()->make('sessions');
             
-            $sessions->setSession($payload->session);
+            $sessions = app()->make('sessions');
+            $sessions->setSession($payload);
         } catch(ExpiredException $e) {
             throw New CoreException("Token is expired");
         } catch(Exception $e) {
-           
             throw New CoreException("Invalid Token");
         }
 

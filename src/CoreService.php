@@ -8,8 +8,20 @@ use Log;
 
 
 abstract class CoreService implements DefaultService {
+
+	protected static $instances;
+
 	abstract protected function prepare($input);
 	abstract protected function process($input, $originalData);
+
+	public static function getInstance() {
+        $class = get_called_class();
+
+        if (!isset(self::$instances[$class])) {
+            self::$instances[$class] = new $class;
+        }
+        return self::$instances[$class];
+    }
 
 	public function execute($input){
 		$originalData = $input;
@@ -22,7 +34,7 @@ abstract class CoreService implements DefaultService {
 			$validator = Validator::make($input, $this->rules());
 
 			if ($validator->fails()) {
-				throw new CoreException($validator->errors());
+				throw new CoreException("", $validator->errors());
 			}
 
 			$this->prepare($input);

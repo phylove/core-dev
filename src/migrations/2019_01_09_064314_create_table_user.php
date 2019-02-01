@@ -17,7 +17,9 @@ class CreateTableUser extends Migration
             $table->increments('id');
             $table->string('username', 50)->unique();
             $table->string('email', 100)->unique();
+            $table->string('full_name', 200);
             $table->string('password', 200);
+            $table->bigInteger('role_default_id')->default(-1);
             $table->bigInteger('version');
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
@@ -25,17 +27,6 @@ class CreateTableUser extends Migration
             $table->bigInteger('updated_at');
 
         });
-
-        DB::table('phy_users')->insert([
-            'username' => 'superuser',
-            'email' => 'superuser@localhost',
-            'password' => password_hash('superuser', PASSWORD_BCRYPT),
-            'version' => 0,
-            'created_by' => -1,
-            'updated_by' => -1,
-            'created_at' => -1,
-            'updated_at' => -1
-        ]);
     }
 
     /**
